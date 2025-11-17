@@ -13,10 +13,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        // Seed movies and genres
+        $this->call([
+            MoviesTableSeeder::class,
+        ]);
+
+        // Create a test user
         // User::factory(10)->create();
 
         User::factory()->create([
-            'name' => 'Test User',
+            'fullname' => 'Test User',
             'email' => 'test@example.com',
         ]);
     }
