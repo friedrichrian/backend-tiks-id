@@ -13,10 +13,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Seed movies, genres, and theaters
+        // Seed movies, genres, theaters, and schedules
         $this->call([
             MoviesTableSeeder::class,
             TheaterTableSeeder::class,
+            ScheduleTableSeeder::class,
         ]);
 
         // Create a test user

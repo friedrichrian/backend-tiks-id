@@ -5,13 +5,17 @@ namespace App\Http\Controllers\Movie;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Movie\MovieCreateRequest;
 use App\Http\Requests\Movie\MovieEditRequest;
+use Illuminate\Http\Request;
 use App\Models\Movie;
 
 class MovieController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $movies = Movie::with('genre')->get();
+        $page = $request->input('page', 1);
+        $per_page = $request->input('per_page', 10);
+
+        $movies = Movie::with('genre')->paginate($per_page, ['*'], 'page', $page);
 
         if ($movies->isEmpty()) {
             return response()->json([
@@ -92,6 +96,23 @@ class MovieController extends Controller
 
         return response()->json([
             'message' => 'Movie deleted successfully',
+        ], 200);
+    }
+
+    public function show($id){
+        $movie = Movie::find($id)->with('genre');
+
+        if(!$movie){
+            return response()->json([
+                'message' => 'Movie not found',
+            ], 404);
+        }
+
+        return response()->json([
+            'message' => 'Movie found',
+            'data' => [
+                "title" => $movie->title
+            ],
         ], 200);
     }
 }

@@ -17,13 +17,14 @@ class Theater extends Model
 
     protected $hidden = [
         'created_at',
-        'updated_at'
+        'updated_at',
     ];
 
     protected $appends = ['total'];
 
     /**
      * Calculate total capacity of the theater
+     *
      * @return int
      */
     public function getTotalAttribute()

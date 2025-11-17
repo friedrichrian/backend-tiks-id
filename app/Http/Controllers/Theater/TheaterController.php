@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers\Theater;
 
-use Illuminate\Http\Request;
-use App\Models\Theater;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Theater\TheaterCreateRequest;
 use App\Http\Requests\Theater\TheaterEditRequest;
+use App\Models\Theater;
 
 class TheaterController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $theater = Theater::all();
 
-        if($theater->isEmpty()){
+        if ($theater->isEmpty()) {
             return response()->json([
                 'message' => 'Theater not found',
             ], 404);
@@ -25,7 +25,8 @@ class TheaterController extends Controller
         ], 200);
     }
 
-    public function create(TheaterCreateRequest $request){
+    public function create(TheaterCreateRequest $request)
+    {
         $theater = Theater::Create($request->validated());
 
         return response()->json([
@@ -34,10 +35,11 @@ class TheaterController extends Controller
         ], 201);
     }
 
-    public function edit(TheaterEditRequest $request, $id){
+    public function edit(TheaterEditRequest $request, $id)
+    {
         $theater = Theater::find($id);
 
-        if(!$theater){
+        if (! $theater) {
             return response()->json([
                 'message' => 'Theater not found',
             ], 404);
@@ -51,10 +53,11 @@ class TheaterController extends Controller
         ], 200);
     }
 
-    public function delete($id){
+    public function delete($id)
+    {
         $theater = Theater::find($id);
 
-        if(!$theater){
+        if (! $theater) {
             return response()->json([
                 'message' => 'Theater not found',
             ], 404);
