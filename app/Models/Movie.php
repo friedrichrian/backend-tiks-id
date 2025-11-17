@@ -18,7 +18,6 @@ class Movie extends Model
 
     protected $hidden = [];
 
-
     public function getPosterAttribute($value)
     {
         if (filter_var($value, FILTER_VALIDATE_URL)) {
@@ -26,7 +25,7 @@ class Movie extends Model
         }
 
         return $value
-            ? asset('storage/' . $value)
+            ? asset('storage/'.$value)
             : null;
     }
 

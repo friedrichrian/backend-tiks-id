@@ -12,8 +12,24 @@ class Theater extends Model
         'name',
         'section',
         'col',
-        'row'
+        'row',
     ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at'
+    ];
+
+    protected $appends = ['total'];
+
+    /**
+     * Calculate total capacity of the theater
+     * @return int
+     */
+    public function getTotalAttribute()
+    {
+        return $this->section * $this->col * $this->row;
+    }
 
     public function schedule()
     {

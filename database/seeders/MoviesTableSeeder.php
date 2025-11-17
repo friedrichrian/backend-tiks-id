@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Movie;
 use App\Models\Genre;
-use Illuminate\Database\Seeder;
+use App\Models\Movie;
 use Carbon\Carbon;
+use Illuminate\Database\Seeder;
 
 class MoviesTableSeeder extends Seeder
 {
@@ -23,7 +23,7 @@ class MoviesTableSeeder extends Seeder
             ['name' => 'Comedy'],
             ['name' => 'Thriller'],
             ['name' => 'Romance'],
-            ['name' => 'Horror']
+            ['name' => 'Horror'],
         ];
 
         // Insert genres
@@ -39,7 +39,7 @@ class MoviesTableSeeder extends Seeder
                 'duration' => 152,
                 'release_date' => Carbon::create(2008, 7, 18),
                 'poster' => 'https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_.jpg',
-                'genres' => ['Action', 'Drama', 'Thriller']
+                'genres' => ['Action', 'Drama', 'Thriller'],
             ],
             [
                 'title' => 'Inception',
@@ -47,7 +47,7 @@ class MoviesTableSeeder extends Seeder
                 'duration' => 148,
                 'release_date' => Carbon::create(2010, 7, 16),
                 'poster' => 'https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_.jpg',
-                'genres' => ['Action', 'Adventure', 'Science Fiction']
+                'genres' => ['Action', 'Adventure', 'Science Fiction'],
             ],
             [
                 'title' => 'The Shawshank Redemption',
@@ -55,7 +55,7 @@ class MoviesTableSeeder extends Seeder
                 'duration' => 142,
                 'release_date' => Carbon::create(1994, 9, 23),
                 'poster' => 'https://m.media-amazon.com/images/M/MV5BNDE3ODcxYzMtY2YzZC00NmNlLWJiNDMtZDViZWM2MzIxZDYwXkEyXkFqcGdeQXVyNjAwNDUxODI@._V1_.jpg',
-                'genres' => ['Drama']
+                'genres' => ['Drama'],
             ],
             [
                 'title' => 'The Godfather',
@@ -63,7 +63,7 @@ class MoviesTableSeeder extends Seeder
                 'duration' => 175,
                 'release_date' => Carbon::create(1972, 3, 24),
                 'poster' => 'https://m.media-amazon.com/images/M/MV5BM2MyNjYxNmUtYTAwNi00MTYxLWJmNWYtYzZlODY3ZTk3OTFlXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_.jpg',
-                'genres' => ['Crime', 'Drama']
+                'genres' => ['Crime', 'Drama'],
             ],
             [
                 'title' => 'Parasite',
@@ -71,19 +71,19 @@ class MoviesTableSeeder extends Seeder
                 'duration' => 132,
                 'release_date' => Carbon::create(2019, 5, 21),
                 'poster' => 'https://m.media-amazon.com/images/M/MV5BYWZjMjk3ZTItODQ2ZC00NTY5LWE0ZDYtZTI3MjcwN2Q5NTVkXkEyXkFqcGdeQXVyODk4OTc3MTY@._V1_.jpg',
-                'genres' => ['Drama', 'Thriller']
-            ]
+                'genres' => ['Drama', 'Thriller'],
+            ],
         ];
 
         foreach ($movies as $movieData) {
             $genres = $movieData['genres'];
             unset($movieData['genres']);
-            
+
             $movie = Movie::firstOrCreate(
                 ['title' => $movieData['title']],
                 $movieData
             );
-            
+
             // Attach genres
             $genreIds = [];
             foreach ($genres as $genreName) {
@@ -92,8 +92,8 @@ class MoviesTableSeeder extends Seeder
                     $genreIds[] = $genre->id;
                 }
             }
-            
-            if (!empty($genreIds)) {
+
+            if (! empty($genreIds)) {
                 $movie->genre()->sync($genreIds);
             }
         }

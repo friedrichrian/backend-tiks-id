@@ -11,10 +11,11 @@ class TransactionDetail extends Model
     protected $fillable = [
         'transaction_id',
         'seat',
-        'price'
+        'price',
     ];
 
-    public function transaction(){
+    public function transaction()
+    {
         return $this->belongsTo(Transaction::class);
     }
 }

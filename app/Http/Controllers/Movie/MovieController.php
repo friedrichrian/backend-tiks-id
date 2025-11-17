@@ -3,17 +3,17 @@
 namespace App\Http\Controllers\Movie;
 
 use App\Http\Controllers\Controller;
-use App\Models\Movie;
-use Illuminate\Http\Request;
 use App\Http\Requests\Movie\MovieCreateRequest;
 use App\Http\Requests\Movie\MovieEditRequest;
+use App\Models\Movie;
 
 class MovieController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $movies = Movie::with('genre')->get();
 
-        if($movies->isEmpty()){
+        if ($movies->isEmpty()) {
             return response()->json([
                 'message' => 'There are no movies yet',
             ], 404);
@@ -25,7 +25,8 @@ class MovieController extends Controller
         ], 200);
     }
 
-    public function create(MovieCreateRequest $request){
+    public function create(MovieCreateRequest $request)
+    {
 
         $data = $request->validated();
         $movie = new Movie(collect($data)->except('poster')->toArray());
@@ -44,14 +45,15 @@ class MovieController extends Controller
         ], 201);
     }
 
-    public function edit(MovieEditRequest $request, $id) {
+    public function edit(MovieEditRequest $request, $id)
+    {
         $data = $request->validated();
-        
+
         $movie = Movie::find($id);
-        
-        if (!$movie) {
+
+        if (! $movie) {
             return response()->json([
-                'message' => 'Movie not found'
+                'message' => 'Movie not found',
             ], 404);
         }
 
@@ -72,23 +74,24 @@ class MovieController extends Controller
 
         return response()->json([
             'message' => 'Movie updated successfully',
-            'data' => $movie
+            'data' => $movie,
         ], 200);
     }
 
-    public function delete($id){
+    public function delete($id)
+    {
         $movie = Movie::find($id);
 
-        if (!$movie) {
+        if (! $movie) {
             return response()->json([
-                'message' => 'Movie not found'
+                'message' => 'Movie not found',
             ], 404);
         }
 
         $movie->delete();
 
         return response()->json([
-            'message' => 'Movie deleted successfully'
+            'message' => 'Movie deleted successfully',
         ], 200);
     }
 }

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('description');
-            $table->integer('duration'); //in minutes
+            $table->integer('duration'); // in minutes
             $table->timestamp('release_date');
             $table->string('poster');
             $table->timestamps();
